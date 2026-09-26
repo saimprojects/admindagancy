@@ -5,7 +5,7 @@ A responsive creative-agency website built with React, JSX, Vite and Tailwind CS
 ## Run locally
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -17,6 +17,15 @@ npm run preview
 ```
 
 Production files are generated in `dist/`. This is a static React site; no application server or API keys are required.
+
+Use Node.js 22 (at least 22.12). `package.json` and `.nvmrc` select the 22.x major supported by Vercel. The committed lockfile is used for reproducible installs.
+
+```bash
+npm test
+npm run check:build
+```
+
+The build also verifies required assets and rejects private configuration files or source maps in the public output.
 
 ## Contact form — one activation step required
 
@@ -41,7 +50,11 @@ Official documentation:
 - `src/main.jsx`: React entry point and self-hosted fonts.
 - `public/images/`: optimized campaign images and supplied logo.
 - `public/favicon.svg`: small AdMind-inspired favicon.
-- `.openai/hosting.json`: Sites identity and static output directory.
+- `vercel.json`: Vercel build settings, security policy and static-asset caching.
+- `scripts/`: production metadata generation and output checks.
+- `.env.example`: optional canonical-domain setting; no secrets are needed.
+- `VERCEL.md`: deployment instructions and the remaining email activation step.
+- `.openai/hosting.json`: legacy Sites identity, excluded from Vercel uploads.
 
 ## Content and artwork
 
@@ -51,8 +64,12 @@ The light header uses the supplied original logo. Dark contexts use a vector ada
 
 The page includes keyboard-accessible dialogs with Escape dismissal and restored focus, reduced-motion support, responsive navigation, semantic form labels, visible focus styles, a skip link and click-to-call/WhatsApp links. The contact form privacy notice explains the FormSubmit processor.
 
-## Publishing
+## Deploy to Vercel
 
-The site is configured for static Sites hosting. Its first hosted version is private to the owner. Public sharing and a custom domain can be configured when the owner is ready to launch.
+See [VERCEL.md](./VERCEL.md). Import the Git repository containing this project into Vercel, use the directory containing this `package.json` as the project root, and select **Vite**. The committed configuration sets installation to `npm ci`, build to `npm run build`, and output to `dist`.
+
+The normal Vercel setup requires no environment variables. Leave automatic system environment variables enabled. For a preferred custom domain, set `SITE_URL` to its HTTPS origin and redeploy; otherwise the stable Vercel production domain is used for canonical and sitemap URLs. Preview and custom staging builds generate `noindex` metadata and a restrictive robots file.
+
+This change prepares the project for Vercel; it does not create or deploy a Vercel project. The previous Sites deployment is independent.
 
 Replace concept projects with approved real work as it becomes available. Pricing, production schedules, revisions and usage rights are agreed per project rather than fabricated on the page.
