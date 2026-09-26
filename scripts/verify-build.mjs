@@ -30,8 +30,20 @@ for (const asset of [
   "images/headphones.webp",
   "images/perfume.webp",
   "images/daybreak.webp",
+  "images/work-01.webp",
+  "images/work-02.webp",
+  "images/work-03.webp",
 ]) {
   await access(path.join(root, asset));
+}
+const bundledAssets = await readdir(path.join(root, "assets"));
+for (const number of [1, 2, 3]) {
+  assert(
+    bundledAssets.some((filename) =>
+      new RegExp(`^${number}-.+\\.mp4$`).test(filename),
+    ),
+    `Missing bundled work video ${number}`,
+  );
 }
 
 async function inspect(directory) {
@@ -50,5 +62,5 @@ async function inspect(directory) {
 }
 await inspect(root);
 console.log(
-  "Production output verified: HTML, scripts, CSS, artwork, crawler metadata and output isolation.",
+  "Production output verified: HTML, scripts, CSS, artwork, work videos, crawler metadata and output isolation.",
 );

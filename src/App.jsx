@@ -20,6 +20,12 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+import WorkVideoCard from "./components/WorkVideoCard.jsx";
+import WorkVideoPlayer from "./components/WorkVideoPlayer.jsx";
+import workVideo1 from "./videos/1.mp4";
+import workVideo2 from "./videos/2.mp4";
+import workVideo3 from "./videos/3.mp4";
+
 export function Logo({ light = false }) {
   if (!light)
     return (
@@ -255,81 +261,25 @@ export function Hero() {
 
 const projects = [
   {
-    name: "PULSE",
-    title: "Sound you can feel.",
-    category: "CONSUMER TECH",
-    service: "Cinematic product creative",
-    image: "headphones",
-    className: "pulse",
-    headline: (
-      <>
-        Feel
-        <br />
-        everything.
-      </>
-    ),
-    description:
-      "An audio concept that makes the product the main character. Sculptural lighting, tactile materials and a single-minded message turn everyday headphones into an object of desire.",
-    idea: "Make the feeling of great sound visible.",
-    direction: "Midnight tones, cool silver highlights and bold, minimal copy.",
-    formats: "Product stills · Social campaign direction · Video storyboard",
-    deliverables: [
-      "Hero product visual",
-      "Feed and Story layout direction",
-      "Three hook concepts",
-    ],
-    alt: "Silver headphones suspended over a dark sculptural surface",
+    name: "FRAGRANCE",
+    title: "A fresher kind of fragrance.",
+    service: "Fragrance product film",
+    video: workVideo1,
+    poster: "/images/work-01.webp",
   },
   {
-    name: "FORME",
-    title: "Quiet. By design.",
-    category: "BEAUTY & LIFESTYLE",
-    service: "Brand & product storytelling",
-    image: "perfume",
-    className: "forme",
-    headline: (
-      <>
-        A little less.
-        <br />A lot more.
-      </>
-    ),
-    description:
-      "A fragrance concept built around restraint. Warm light, natural textures and considered negative space create a visual world that feels personal, timeless and quietly confident.",
-    idea: "Sell the ritual, not just the fragrance.",
-    direction: "Sun-warmed stone, amber glass and an editorial sensibility.",
-    formats: "Product stills · Brand storytelling · Social campaign direction",
-    deliverables: [
-      "Luxury product visual",
-      "Editorial campaign direction",
-      "Feed and Story layout direction",
-    ],
-    alt: "Amber FORME perfume bottle on ivory stone in warm sunlight",
+    name: "BEVERAGE",
+    title: "Refreshment, in motion.",
+    service: "Beverage product film",
+    video: workVideo2,
+    poster: "/images/work-02.webp",
   },
   {
-    name: "DAYBREAK",
-    title: "A brighter kind of energy.",
-    category: "FOOD & BEVERAGE",
-    service: "Social-first campaign creative",
-    image: "daybreak",
-    className: "daybreak",
-    headline: (
-      <>
-        Good energy.
-        <br />
-        On repeat.
-      </>
-    ),
-    description:
-      "A drinks concept with a fresh point of view. Punchy citrus, crisp droplets and unapologetic color create an instantly recognizable visual built for a fast-moving social feed.",
-    idea: "Make refreshment impossible to scroll past.",
-    direction: "Bold orange, energetic splashes and playful, punchy headlines.",
-    formats: "Product stills · Social ad concepts · Launch campaign direction",
-    deliverables: [
-      "Hero beverage visual",
-      "Launch campaign direction",
-      "Three hook concepts",
-    ],
-    alt: "DAYBREAK orange drink can with splashing water and fresh orange wedges",
+    name: "AUDIO",
+    title: "Sound. With presence.",
+    service: "Headphones product film",
+    video: workVideo3,
+    poster: "/images/work-03.webp",
   },
 ];
 
@@ -386,7 +336,7 @@ function SectionLabel({ number, children, light = false }) {
   );
 }
 
-function Work({ onSelect }) {
+function Work({ onSelect, playerOpen }) {
   return (
     <section id="work" className="work section-padding container">
       <div className="section-heading reveal">
@@ -404,56 +354,23 @@ function Work({ onSelect }) {
           make.
           <br />
           <span className="concept-note">
-            Studio concepts. Real creative possibilities.
+            Hover to preview. Click or tap to watch with sound.
           </span>
         </p>
       </div>
       <div className="work-grid">
-        {projects.map((p, index) => (
-          <button
-            className={`work-card reveal ${p.className}`}
-            key={p.name}
-            onClick={() => onSelect(p)}
-            style={{ "--delay": `${index * 100}ms` }}
-            aria-label={`Explore ${p.name} creative concept`}
-          >
-            <div className="work-image">
-              <img
-                src={`/images/${p.image}.webp`}
-                alt={p.alt}
-                loading="lazy"
-                width="1086"
-                height="1448"
-              />
-              <div className="work-image-top">
-                <span>{p.name}</span>
-                <span className="work-concept">STUDIO CONCEPT</span>
-              </div>
-              <div className="work-image-bottom">
-                <span>{p.headline}</span>
-                <span className="round-arrow">
-                  <ArrowUpRight size={22} />
-                </span>
-              </div>
-              <span className="work-hover-label">
-                EXPLORE THE CONCEPT <ArrowUpRight size={14} />
-              </span>
-            </div>
-            <div className="work-meta">
-              <div>
-                <h3>{p.title}</h3>
-                <p>{p.service}</p>
-              </div>
-              <span>0{index + 1}</span>
-            </div>
-          </button>
+        {projects.map((project, index) => (
+          <WorkVideoCard
+            key={project.video}
+            project={project}
+            index={index}
+            playerOpen={playerOpen}
+            onSelect={onSelect}
+          />
         ))}
       </div>
       <div className="work-footnote reveal">
-        <span>
-          Independent creative explorations. No client affiliation or
-          performance claims.
-        </span>
+        <span>Fragrance, beverage and audio. Creative made to move.</span>
         <a href="#contact">
           Imagine this for your brand <ArrowUpRight size={17} />
         </a>
@@ -464,49 +381,8 @@ function Work({ onSelect }) {
 
 function ProjectDetail({ project, onClose }) {
   return (
-    <Modal
-      title={`${project.name} creative concept`}
-      onClose={onClose}
-      className="project-modal"
-    >
-      <div className="project-detail">
-        <img
-          className="project-detail-image"
-          src={`/images/${project.image}.webp`}
-          alt={project.alt}
-        />
-        <div className="project-detail-copy">
-          <span className="eyebrow">STUDIO CONCEPT / {project.category}</span>
-          <h3>{project.name}</h3>
-          <h4>{project.title}</h4>
-          <p>{project.description}</p>
-          <div className="project-fact">
-            <span>THE IDEA</span>
-            <p>{project.idea}</p>
-          </div>
-          <div className="project-fact">
-            <span>ART DIRECTION</span>
-            <p>{project.direction}</p>
-          </div>
-          <div className="project-fact">
-            <span>CONCEPT INCLUDES</span>
-            <ul>
-              {project.deliverables.map((item) => (
-                <li key={item}>
-                  <Check size={15} />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <p className="project-disclaimer">
-            An independent AdMind exploration, created to demonstrate our
-            creative direction. This is a concept presentation, not a client
-            case study or finished video.
-          </p>
-          <Button onClick={onClose}>Create something like this</Button>
-        </div>
-      </div>
+    <Modal title={project.title} onClose={onClose} className="work-video-modal">
+      <WorkVideoPlayer project={project} />
     </Modal>
   );
 }
@@ -1241,7 +1117,7 @@ export default function App() {
             <span className="platform-word shopify">▱ shopify</span>
           </div>
         </div>
-        <Work onSelect={setProject} />
+        <Work onSelect={setProject} playerOpen={Boolean(project)} />
         <Services />
         <Process />
         <About />

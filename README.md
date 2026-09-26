@@ -48,6 +48,8 @@ Official documentation:
 - `src/App.jsx`: page sections, work previews, service/FAQ accordions, contact form and privacy notice.
 - `src/styles.css`: responsive layout, design tokens, component styling and motion.
 - `src/main.jsx`: React entry point and self-hosted fonts.
+- `src/videos/1.mp4`, `2.mp4`, `3.mp4`: uploaded work films, shown in that order.
+- `src/components/WorkVideoCard.jsx` and `WorkVideoPlayer.jsx`: muted previews and the full video player.
 - `public/images/`: optimized campaign images and supplied logo.
 - `public/favicon.svg`: small AdMind-inspired favicon.
 - `vercel.json`: Vercel build settings, security policy and static-asset caching.
@@ -58,7 +60,9 @@ Official documentation:
 
 ## Content and artwork
 
-PULSE, FORME and DAYBREAK are independent studio concepts, explicitly labeled as such. They are not client projects, video samples, testimonials or performance case studies. No invented clients, results, awards, office location or delivery promises are presented.
+The hero uses the PULSE, FORME and DAYBREAK concept artwork. The Work section displays the supplied fragrance, beverage and headphones videos in the order `1.mp4`, `2.mp4`, `3.mp4`. It makes no client affiliation or performance claims.
+
+Work cards use still frames extracted from their own videos as posters. Videos are imported from `src/videos`, so Vite includes fingerprinted MP4 files in the production build. Hover or keyboard focus starts a muted, looping preview when the card is visible. Leaving the card, scrolling it offscreen, hiding the tab or opening the player pauses previews. Clicking or tapping opens the full video with audio and native playback controls; if the browser blocks audio playback, an explicit play button is available. Closing the dialog stops its audio.
 
 The light header uses the supplied original logo. Dark contexts use a vector adaptation. Campaign artwork was created for this site with ImageGen and optimized to WebP. Platform names identify intended ad formats, not partnerships or endorsements.
 
